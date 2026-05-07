@@ -7,12 +7,26 @@ import NavBar from "../components/NavBar"
 
 function Home({ favorites, toggleFavorite, darkMode, setDarkMode }) {
     const [searchTerm, setSearchTerm] = useState("")
+    const [selectedCategory, setSelectedCategory] = useState("All")
 
-    const filteredPlaces = places.filter(place => 
-        place.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        place.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        place.category.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    const categories = [
+        "All",
+        "Beaches",
+        "Mountains",
+        "Cities",
+        "Temples",
+        "Historical",
+        "Nature",
+        "Culture"
+    ]
+
+    const filteredPlaces = places.filter(place => {
+        const matchesSearch = place.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                              place.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                              place.category.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory === "All" || place.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+    });
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -61,6 +75,21 @@ function Home({ favorites, toggleFavorite, darkMode, setDarkMode }) {
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </motion.div>
+                    <div className="flex flex-wrap justify-center gap-2 mt-6">
+                        {categories.map((category) => (
+                            <button
+                                key={category}
+                                onClick={() => setSelectedCategory(category)}
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                                    selectedCategory === category
+                                        ? "bg-accent-light text-white"
+                                        : "bg-slate-200 text-slate-600 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700"
+                                }`}
+                            >
+                                {category}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Background decorative elements */}
