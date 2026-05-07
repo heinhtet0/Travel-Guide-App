@@ -11,11 +11,6 @@ function App() {
       (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
   })
 
-  const [favorites, setFavorites] = useState(() => {
-    const saved = localStorage.getItem('vietnam-favorites')
-    return saved ? JSON.parse(saved) : []
-  })
-
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark')
@@ -25,10 +20,6 @@ function App() {
       localStorage.setItem('theme', 'light')
     }
   }, [darkMode])
-
-  useEffect(() => {
-    localStorage.setItem('vietnam-favorites', JSON.stringify(favorites))
-  }, [favorites])
 
   const toggleFavorite = (id) => {
     setFavorites(prev => 
@@ -40,13 +31,13 @@ function App() {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
       <Routes>
         <Route path="/" element={
-          <Home favorites={favorites} toggleFavorite={toggleFavorite} darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Home darkMode={darkMode} setDarkMode={setDarkMode} />
         } />
         <Route path="/place/:id" element={
-          <PlaceDetail favorites={favorites} toggleFavorite={toggleFavorite} darkMode={darkMode} setDarkMode={setDarkMode} />
+          <PlaceDetail darkMode={darkMode} setDarkMode={setDarkMode} />
         } />
         <Route path="/favorites" element={
-          <Favorites favorites={favorites} toggleFavorite={toggleFavorite} darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Favorites  darkMode={darkMode} setDarkMode={setDarkMode} />
         } />
       </Routes>
     </div>

@@ -3,10 +3,13 @@ import { motion } from "framer-motion"
 import { ArrowLeft, Heart, MapPin, Sparkles, Share2 } from "lucide-react"
 import places from "../data/Places"
 import NavBar from "../components/NavBar"
+import { useContext } from "react"
+import { FavoritesContext } from "../context/FavoritesContext"
 
-export default function PlaceDetail({ favorites, toggleFavorite, darkMode, setDarkMode }) {
+export default function PlaceDetail({ darkMode, setDarkMode }) {
     const { id } = useParams()
     const place = places.find((place) => place.id === Number(id))
+    const { favorites , toggleFavorite } = useContext(FavoritesContext)
 
     if (!place) return (
         <div className="min-h-screen flex items-center justify-center">

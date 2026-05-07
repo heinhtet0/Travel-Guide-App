@@ -1,9 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { MapPin, Heart } from 'lucide-react'
+import { useContext } from 'react'
+import { FavoritesContext } from '../context/FavoritesContext'
 
-export default function PlaceCard({ place, isFavorite, toggleFavorite }) {
+export default function PlaceCard({ place }) {
     const navigate = useNavigate()
+    const { favorites, toggleFavorite } = useContext(FavoritesContext)
+    const isFavorite = favorites.includes(place.id)
     
     const handleFavoriteClick = (e) => {
         e.stopPropagation()

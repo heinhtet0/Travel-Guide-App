@@ -4,10 +4,13 @@ import { Search, Compass } from "lucide-react"
 import places from "../data/Places"
 import PlaceCard from "../components/PLaceCard"
 import NavBar from "../components/NavBar"
+import { useContext } from "react"
+import { FavoritesContext } from "../context/FavoritesContext"
 
-function Home({ favorites, toggleFavorite, darkMode, setDarkMode }) {
+function Home({ darkMode, setDarkMode }) {
     const [searchTerm, setSearchTerm] = useState("")
     const [selectedCategory, setSelectedCategory] = useState("All")
+    const { favorites, toggleFavorite } = useContext(FavoritesContext)
 
     const categories = [
         "All",
@@ -21,9 +24,9 @@ function Home({ favorites, toggleFavorite, darkMode, setDarkMode }) {
     ]
 
     const filteredPlaces = places.filter(place => {
-        const matchesSearch = place.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                              place.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                              place.category.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesSearch =   place.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                place.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                place.category.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesCategory = selectedCategory === "All" || place.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
@@ -104,11 +107,9 @@ function Home({ favorites, toggleFavorite, darkMode, setDarkMode }) {
                     <AnimatePresence mode="popLayout">
                         {filteredPlaces.length > 0 ? (
                             filteredPlaces.map((place) => (
-                                <PlaceCard 
-                                    key={place.id} 
+                                <PlaceCard  
                                     place={place} 
-                                    isFavorite={favorites.includes(place.id)}
-                                    toggleFavorite={toggleFavorite}
+                                    key={place.id}
                                 />
                             ))
                         ) : (

@@ -4,8 +4,11 @@ import { Link } from "react-router-dom"
 import places from "../data/Places"
 import PlaceCard from "../components/PLaceCard"
 import NavBar from "../components/NavBar"
+import { useContext } from "react"
+import { FavoritesContext } from "../context/FavoritesContext"
 
-export default function Favorites({ favorites, toggleFavorite, darkMode, setDarkMode }) {
+export default function Favorites({ darkMode, setDarkMode }) {
+    const { favorites, toggleFavorite } = useContext(FavoritesContext)
     const favoritePlaces = places.filter(place => favorites.includes(place.id))
 
     return (
@@ -39,9 +42,7 @@ export default function Favorites({ favorites, toggleFavorite, darkMode, setDark
                             {favoritePlaces.map((place) => (
                                 <PlaceCard 
                                     key={place.id} 
-                                    place={place} 
-                                    isFavorite={true}
-                                    toggleFavorite={toggleFavorite}
+                                    place={place}
                                 />
                             ))}
                         </AnimatePresence>
