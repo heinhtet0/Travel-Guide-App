@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 export const FavoritesContext = createContext();
 
@@ -16,10 +17,17 @@ export function FavoritesProvider({ children }) {
     }, [favorites]);
 
     const toggleFavorite = (id) => {
-        setFavorites((prev) => 
-            prev.includes(id)
-                ? prev.filter((favId) => favId !== id)
-                : [...prev, id]
+        setFavorites((prev) => {
+            const isFavorite = prev.includes(id);
+
+            if(isFavorite){
+                toast.error("Removed from favorites 💔");
+                return prev.filter((favId) => favId !== id);
+            } else {
+                toast.success("Added to favorites ❤️");
+                return [...prev, id];
+            }
+        }
         );
     }
 
