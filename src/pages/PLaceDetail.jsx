@@ -6,7 +6,7 @@ import NavBar from "../components/NavBar"
 import { useContext } from "react"
 import { FavoritesContext } from "../context/FavoritesContext"
 
-export default function PlaceDetail({ darkMode, setDarkMode }) {
+export default function PlaceDetail() {
     const { id } = useParams()
     const place = places.find((place) => place.id === Number(id))
     const { favorites , toggleFavorite } = useContext(FavoritesContext)
@@ -24,7 +24,7 @@ export default function PlaceDetail({ darkMode, setDarkMode }) {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <NavBar darkMode={darkMode} setDarkMode={setDarkMode} />
+            <NavBar />
             
             <main className="flex-grow">
                 <div className="max-w-7xl mx-auto px-4 py-8">

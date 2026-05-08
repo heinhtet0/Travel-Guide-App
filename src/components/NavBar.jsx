@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
 import { Sun, Moon, Heart, Map } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useContext } from 'react'
+import { ThemeContext } from '../context/ThemeContext'
 
-export default function NavBar({ darkMode, setDarkMode }) {
+export default function NavBar() {
+    const { darkMode, setDarkMode } = useContext(ThemeContext);
+
     return (
         <nav className="sticky top-0 z-50 glass h-16 flex items-center">
             <div className="max-w-7xl mx-auto px-4 w-full flex justify-between items-center">

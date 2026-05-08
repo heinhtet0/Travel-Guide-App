@@ -7,7 +7,7 @@ import NavBar from "../components/NavBar"
 import { useContext } from "react"
 import { FavoritesContext } from "../context/FavoritesContext"
 
-function Home({ darkMode, setDarkMode }) {
+function Home() {
     const [searchTerm, setSearchTerm] = useState("")
     const [selectedCategory, setSelectedCategory] = useState("All")
     const { favorites, toggleFavorite } = useContext(FavoritesContext)
@@ -33,7 +33,7 @@ function Home({ darkMode, setDarkMode }) {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <NavBar darkMode={darkMode} setDarkMode={setDarkMode} />
+            <NavBar />
             
             <header className="relative py-20 px-4 overflow-hidden">
                 <div className="max-w-4xl mx-auto text-center relative z-10">
